@@ -27,7 +27,7 @@ package net.natpat
 		public var bitmap:Bitmap;
 		public static var renderer:BitmapData;
 		
-		public var text:Text = new Text(10, 10, "Hello, World!", 2, true);
+		public var text:Text = new Text(10, 10, "Anything", 2, true);
 		public var emitter:Emitter = new Emitter(new BitmapData(4, 4, true, 0xffffffff));
 		
 		public function GameManager(stageWidth:int, stageHeight:int) 
