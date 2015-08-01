@@ -48,7 +48,7 @@ package net.natpat
 			addChild(game.bitmap);
 			
 			//Create the main game loop
-			addEventListener(Event.ENTER_FRAME, run);
+			addEventListener(Event.ENTER_FRAME, tick);
 			Input.setupListeners();
 			stage.align = StageAlign.TOP_LEFT;
 			stage.quality = StageQuality.HIGH;
@@ -56,7 +56,7 @@ package net.natpat
 			stage.displayState = StageDisplayState.NORMAL;
 		}
 		
-		private function run(e:Event):void
+		private function tick(e:Event):void
 		{
 			//Works out GV.elapsed, or how many milliseconds have passed since the last frame
 			currentTime = getTimer();

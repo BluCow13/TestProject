@@ -26,9 +26,8 @@ package net.natpat
 		 */
 		public var bitmap:Bitmap;
 		public static var renderer:BitmapData;
-		
-		public var text:Text = new Text(10, 10, "Anything", 2, true);
-		public var emitter:Emitter = new Emitter(new BitmapData(4, 4, true, 0xffffffff));
+		public var player1:Player;
+		public var platforms:Array;
 		
 		public function GameManager(stageWidth:int, stageHeight:int) 
 		{
@@ -41,15 +40,22 @@ package net.natpat
 			
 			GV.screen = renderer;
 			
-			GuiManager.add(text);
+			buildPlatforms();
 			
-			emitter.setColor(0xff0000, 0x00cccc);
-			emitter.setMotion(0, 125, 5, 360, 25, 0.5, Ease.quintOut);
-			emitter.setAlpha(1, 0, Ease.cubeIn);
-			emitter.setEmitTime(0.02, 0);
-			emitter.setSizeChange(1, 0, Ease.quintIn);
-			emitter.startEmitting();
+			player1 = new Player(10, 10, platforms);
 		}
+		
+		public function buildPlatforms():void
+		{			
+			platforms = new Array();
+			
+			platforms.push(new Platform(0, 550, GC.SCREEN_WIDTH, 50));
+			
+			platforms.push(new Platform(500, 350, 300, 200));
+			
+			platforms.push(new Platform(300, 450, 200, 100));
+		}
+		
 		public function render():void
 		{
 			renderer.lock();
@@ -57,7 +63,12 @@ package net.natpat
 			//Render the background
 			renderer.fillRect(new Rectangle(0, 0, renderer.width, renderer.height), 0xffffff);
 			
-			emitter.render(GV.screen);
+			for each(var platform in platforms)
+			{
+				platform.render(GV.screen);
+			}
+			
+			player1.render(GV.screen);
 			
 			GuiManager.render(GV.screen);
 			
@@ -68,10 +79,7 @@ package net.natpat
 		{
 			GuiManager.update();
 			
-			emitter.x = Input.mouseX;
-			emitter.y = Input.mouseY;
-			
-			emitter.update();
+			player1.update();
 			
 			Input.update();
 		}
