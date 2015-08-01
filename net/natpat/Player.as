@@ -18,6 +18,10 @@ package net.natpat
 		public var width:Number = 50;
 		public var height:Number = 50;
 		
+		public var yV:Number = 0;
+		public var grounded:Boolean;
+		
+		
 		public function Player(_x:int, _y:int, _platforms:Array) 
 		{
 			x = _x;
@@ -37,25 +41,34 @@ package net.natpat
 			var yDiff:Number;
 			var xDiff:Number;
 			
-			if (Input.keyDown(Key.DOWN)) 
+			// y bit
+			
+			if (Input.keyDown(Key.UP) && grounded) 
 			{
-				y += 5;
+				yV = -10;
 			}
 			
-			if (Input.keyDown(Key.UP)) 
-			{
-				y += -5;
-			}
+			yV += GC.GRAVITY;
 			
-			yDiff = yTemp - y;
+			y += yV;
+			
+			yDiff = yTemp - y;	
+			
+			grounded = false;
 			
 			for each(var platform:Platform in platforms)
 			{
 				while (GV.intersects(/* player */ x, y, width, height, /* platform */ platform.x, platform.y, platform.width, platform.height))
 				{
-					y += yDiff/100;					
+					y += yDiff / 100;
+					
+					yV = 0;
+					
+					grounded = true;
 				}
 			}
+			
+			// x bit
 			
 			if (Input.keyDown(Key.RIGHT)) 
 			{
@@ -73,7 +86,7 @@ package net.natpat
 			{
 				while (GV.intersects(/* player */ x, y, width, height, /* platform */ platform.x, platform.y, platform.width, platform.height))
 				{
-					x += xDiff/100;
+					x += xDiff / 100;
 				}
 			}
 		}
