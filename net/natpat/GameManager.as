@@ -49,11 +49,11 @@ package net.natpat
 		{			
 			platforms = new Array();
 			
-			platforms.push(new Platform(0, 550, GC.SCREEN_WIDTH, 50));
+			platforms.push(new Platform(0, 550, GC.SCREEN_WIDTH, 50, 0xff000000 /*black*/, 0xff00b200 /*mild green*/));
 			
-			platforms.push(new Platform(500, 350, 300, 200));
+			platforms.push(new Platform(500, 350, 300, 200, 0xff000000 /*black*/, 0xff00b200 /*mild green*/));
 			
-			platforms.push(new Platform(300, 450, 200, 100));
+			platforms.push(new Platform(300, 450, 200, 100, 0xff000000 /*black*/, 0xff00b200 /*mild green*/));
 		}
 		
 		public function render():void
